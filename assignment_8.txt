@@ -1,0 +1,105 @@
+作业 8
+
+Question 1
+
+    Point 
+    +   x:int
+    +   y:int
+
+    Cell 
+    +   value:int
+    
+    Game
+    +   static newGame(int[][] data) -> Game
+        根据类似下面的二维数组 构建一个新的 Game 对象
+
+            0   0   0   0   0   0   0
+            0   0   0   0   0   0   0   
+            0   0   1   1   1   0   0   
+            0   0   0   0   1   0   0
+            1   1   0   0   1   0   0
+            0   1   0   0   0   0   0
+            0   1   0   0   0   0   0
+
+        这些地方，1 代表一棵树，0 代表 是平地
+    
+    +   print()
+        如果是树 打印 T，如果是平地，打印 _
+        比如，上面初始化的地图，应该打印出
+
+            _   _   _   _   _   _   _
+            _   _   _   _   _   _   _   
+            _   _   T   T   T   _   _   
+            _   _   _   _   T   _   _
+            T   T   _   _   T   _   _
+            _   T   _   _   _   _   _
+            _   T   _   _   _   _   _
+        
+
+    +   isReachable(from: Point, to: Point) -> boolean
+        检测 两个点 是否可通过 平底抵达
+
+    +   setRange(origin: Point, range: int)
+        从 origin 开始，标记周围距离它 range 范围的格，
+        使得调用该方法后，再调用 print 能看到 类似从某点开始的攻击范围的效果
+        比如，当调用完 setRange(new Point(1, 0), 2) 后，
+        如果调用 print() 会看到
+
+            o   x   o   o   _   _   _
+            o   o   o   _   _   _   _   
+            _   o   T   T   T   _   _   
+            _   _   _   _   T   _   _
+            T   T   _   _   T   _   _
+            _   T   _   _   _   _   _
+            _   T   _   _   _   _   _
+
+        x 代表 origin 的位置
+        o 代表 可以接触到的点
+        提示：
+            你可能需要在 Cell 里增加新的属性，帮助 标记
+            你需要修改 print 方法，支持根据这些标记 输出样式
+            
+    +   setPath(from: Point, to: Point)
+        找到 从 from 开始 到 to 的 一条最短路径（可能有多条，选中一条就好）
+        使得调用该方法后，再调用 print 能看到 类似从某点开始抵达某点的路径提示
+        比如，当调用玩 setPath(new Point(3, 3), new Point(4, 1)) 后
+        如果调用 print() 会看到
+
+            _   _   _   _   _   _   _
+            _   o   o   o   v   _   _   
+            _   o   T   T   T   _   _   
+            _   o   o   x   T   _   _
+            T   T   _   _   T   _   _
+            _   T   _   _   _   _   _
+            _   T   _   _   _   _   _
+            
+        x 代表 from 的位置
+        o 代表 中间的路径
+        v 代表 to 的位置
+        路径不能穿越树
+        提示：
+            你可能需要在 Cell 里增加新的属性，帮助 标记
+            你需要修改 print 方法，支持根据这些标记 输出样式
+
+        增强要求：
+            看看能不能在有多条路径都是同样距离的时候，挑一条拐弯数量最少的
+
+    +   setConnected(origin: Point)
+        从 origin 开始，标记所有它能抵达的点
+        使得调用该方法后，再调用 print 能看到 类似从某点开始所有能够抵达的位置
+        比如，当调用完 setConnected(new Point(0, 5)) 后，
+        如果调用 print() 会看到
+
+            _   _   _   _   _   _   _
+            _   _   _   _   _   _   _   
+            _   _   T   T   T   _   _   
+            _   _   _   _   T   _   _
+            T   T   _   _   T   _   _
+            x   T   _   _   _   _   _
+            o   T   _   _   _   _   _
+        
+        x 代表 origin 的位置
+        o 代表 能抵达的位置
+
+
+
