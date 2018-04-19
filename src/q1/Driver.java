@@ -25,7 +25,7 @@ public class Driver {
         game.initCells();
 
         //setRange
-        game.setRange(new Point(1, 0), 2);
+        game.setRange(new Point(5, 1), 3);
         game.print();
 
         System.out.println();

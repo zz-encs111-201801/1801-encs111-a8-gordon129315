@@ -15,17 +15,21 @@ public class Game {
     int height;
     int length;
 
+    public Game(int height, int length) {
+        this.height = height;
+        this.length = length;
+    }
+
     public static Game newGame(int[][] data) {
-        Game game = new Game();
-        game.height = data.length;
-        game.length = data[0].length;
+        Game game = new Game(data.length, data[0].length);
+
         for (int i = 0; i < game.height; i++) {         //Point : y
             for (int j = 0; j < game.length; j++) {     //Point : x
-                if (data[i][j] == 1) {
+                if (data[i][j] == Cell.TREE) {
                     Cell cell = new Cell(new Point(j, i), Cell.TREE);
                     game.cells.put(new Point(j, i), cell);
                 }
-                else if (data[i][j] == 0) {
+                else if (data[i][j] == Cell.GROUND) {
                     Cell cell = new Cell(new Point(j, i), Cell.GROUND);
                     game.cells.put(new Point(j, i), cell);
                     //连接上面的结点
@@ -105,9 +109,9 @@ public class Game {
             return true;
         }
         else if (from.x != to.x && from.y == to.y) {         //横坐标不同，纵坐标相同，左右平移
-            int min_x = Math.min(from.x, to.x);
-            int max_x = Math.max(from.x, to.x);
-            for (int j = min_x; j <= max_x; j++) {
+            int minX = Math.min(from.x, to.x);
+            int maxX = Math.max(from.x, to.x);
+            for (int j = minX; j <= maxX; j++) {
                 Cell cell = getCell(new Point(j, from.y));
                 if (cell.value == Cell.TREE) {
                     return false;
@@ -116,9 +120,9 @@ public class Game {
             return true;
         }
         else if (from.x == to.x && from.y != to.y) {         //横坐标相同，纵坐标不同，上下平移
-            int min_y = Math.min(from.y, to.y);
-            int max_y = Math.max(from.y, to.y);
-            for (int i = min_y; i <= max_y; i++) {
+            int minY = Math.min(from.y, to.y);
+            int maxY = Math.max(from.y, to.y);
+            for (int i = minY; i <= maxY; i++) {
                 Cell cell = getCell(new Point(from.x, i));
                 if (cell.value == Cell.TREE) {
                     return false;
@@ -133,9 +137,9 @@ public class Game {
     //setRange(origin: Point, range: int)
     //从 origin 开始，标记周围距离它 range 范围的格，
     public void setRange(Point origin, int range) {
-        Cell o_cell = getCell(origin);
-        o_cell.status = Cell.START_POINT;
-        dfs(o_cell,0, range);
+        Cell oCell = getCell(origin);
+        oCell.status = Cell.START_POINT;
+        dfs(oCell,0, range);
     }
 
     //dfs 深度遍历到range步就返回，不再继续走下去
@@ -171,9 +175,9 @@ public class Game {
     //setConnected(origin: Point)
     //从 origin 开始，标记所有它能抵达的点
     public void setConnected(Point origin) {
-        Cell o_cell = getCell(origin);
-        o_cell.status = Cell.START_POINT;
-        bfs(o_cell);
+        Cell oCell = getCell(origin);
+        oCell.status = Cell.START_POINT;
+        bfs(oCell);
     }
 
     //广度遍历 从from开始的连通组件

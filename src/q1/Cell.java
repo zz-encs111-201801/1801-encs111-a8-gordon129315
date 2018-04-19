@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 public class Cell {
     int value;
-    public static final int GROUND = 1;
-    public static final int TREE = 2;
+    public static final int GROUND = 0;
+    public static final int TREE = 1;
 
     int mark;
     public final static  int markNotVisited = 0;
